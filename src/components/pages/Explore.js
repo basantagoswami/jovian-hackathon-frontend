@@ -4,7 +4,7 @@ import './Explore.css';
 import { host } from '../../utils/ApiRoutes';
 
 const Explore = () => {
-  const [promtText, setPromtText] = useState('');
+  const [promptText, setPromptText] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(false);
   const [sendError, setSendError] = useState('');
@@ -25,7 +25,7 @@ const Explore = () => {
       };
       const response = await axios.post(
         `${host}/places/explore`,
-        { promtText },
+        { promptText },
         { headers }
       );
       console.log(response.data);
@@ -33,7 +33,7 @@ const Explore = () => {
       // Handle successful message sending
       setIsSending(false);
       setSendSuccess(true);
-      setPromtText('');
+      setPromptText('');
       setResponseData(response.data); // Store the response data in state
     } catch (error) {
       console.error(error);
@@ -49,8 +49,8 @@ const Explore = () => {
       <div className="message-input">
         <textarea
           placeholder="Enter your message"
-          value={promtText}
-          onChange={(e) => setPromtText(e.target.value)}
+          value={promptText}
+          onChange={(e) => setPromptText(e.target.value)}
         />
         <button disabled={isSending} onClick={handleSendMessage}>
           {isSending ? 'Sending...' : 'Send Message'}
