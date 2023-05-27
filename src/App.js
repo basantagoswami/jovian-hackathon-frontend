@@ -3,17 +3,16 @@ import { BrowserRouter as Router, Routes ,Route } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
-import Travel from './components/pages/Travel';
+import Explore from './components/pages/Explore';
 
 function App() {
   return (
     <Router>
             <Routes>
-
         <Route  path="/register" element={<Register/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/" element={<Home/>} />
-        <Route path="/travel" element={<Travel/>} />
+        <Route path="/explore" element={<Explore/>} />
         </Routes>
 
     </Router>

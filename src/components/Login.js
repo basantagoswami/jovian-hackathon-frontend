@@ -15,7 +15,7 @@ const Login = () => {
       const response = await axios.post(`${host}/auth/login`, { username, password });
       console.log(response.data);
       // Redirect to the home page after successful login
-      navigate('/travel');
+      navigate('/explore');
     } catch (error) {
       console.error(error);
       // Handle login error
