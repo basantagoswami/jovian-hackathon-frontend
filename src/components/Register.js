@@ -51,9 +51,10 @@ const Register = () => {
         </div>
         <button onClick={handleRegister}>Register</button>
         <p>Press Enter to register</p>
-        <p>
-          Already have an account? <Link to="/login">Login</Link>
-        </p>
+        <p className="login-link">
+  Already have an account? <Link to="/login">Login</Link>
+</p>
+
         <p>
           <Link to="/forgot-password">Forgot Password</Link>
         </p>
