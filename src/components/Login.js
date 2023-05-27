@@ -10,10 +10,12 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       // Make API call for login
-      const response = await axios.post('/api/login', { username, password });
+      const host = 'https://jovian-hackathon-backend.vercel.app';
+
+      const response = await axios.post(`${host}/auth/login`, { username, password });
       console.log(response.data);
       // Redirect to the home page after successful login
-      navigate('/');
+      navigate('/travel');
     } catch (error) {
       console.error(error);
       // Handle login error
