@@ -8,7 +8,8 @@ const Explore = () => {
   const [isSending, setIsSending] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(false);
   const [sendError, setSendError] = useState('');
-  const [token, setToken] = useState('');
+  const [responseData, setResponseData] = useState(''); // New state variable for response data
+  const access_token = localStorage.getItem('access_token');
 
   const handleSendMessage = async () => {
     try {
@@ -17,13 +18,23 @@ const Explore = () => {
       setSendError('');
 
       // Make API call to send message
-      const headers = { Authorization: `Bearer ${token}` };
-      const response = await axios.post(`${host}/places/explore`, { promtText }, { headers });
+      const headers = {
+        Authorization: access_token,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      };
+      const response = await axios.post(
+        `${host}/places/explore`,
+        { promtText },
+        { headers }
+      );
       console.log(response.data);
+
       // Handle successful message sending
       setIsSending(false);
       setSendSuccess(true);
       setPromtText('');
+      setResponseData(response.data); // Store the response data in state
     } catch (error) {
       console.error(error);
       // Handle message sending error
@@ -47,6 +58,14 @@ const Explore = () => {
       </div>
       {sendSuccess && <p className="success-message">Message sent successfully!</p>}
       {sendError && <p className="error-message">{sendError}</p>}
+      
+      {/* Display the response data */}
+      <textarea
+        className="response-textarea"
+        placeholder="Response data"
+        value={responseData}
+        readOnly
+      />
     </div>
   );
 };
