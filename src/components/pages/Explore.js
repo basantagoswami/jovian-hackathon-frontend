@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { host } from '../../utils/ApiRoutes';
 import './Explore.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const Explore = () => {
   const [promptText, setPromptText] = useState('');
@@ -11,6 +13,12 @@ const Explore = () => {
   const [responseData, setResponseData] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const access_token = localStorage.getItem('access_token');
+  
+  const prevResponseDataRef = useRef(); // Create a ref to store the previous responseData
+
+  useEffect(() => {
+    prevResponseDataRef.current = responseData; // Update the ref with the current responseData
+  }, [responseData]); // This runs every time responseData changes
 
   const handleSendMessage = async () => {
     try {
@@ -18,34 +26,31 @@ const Explore = () => {
       setSendSuccess(false);
       setSendError('');
 
-      // Make API call to send message
       const headers = {
         Authorization: access_token,
         'Content-Type': 'application/json',
         Accept: 'application/json',
       };
+      
       const response = await axios.post(
         `${host}/places/explore`,
         { promptText },
         { headers }
       );
-      console.log(response.data);
 
-      // Handle successful message sending
+      console.log(response.data);
       setIsSending(false);
       setSendSuccess(true);
       setPromptText('');
-      setResponseData(response.data); // Store the response data in state
+      setResponseData(response.data);
     } catch (error) {
       console.error(error);
-      // Handle message sending error
       setIsSending(false);
       setSendError('Failed to send message. Please try again.');
     }
   };
 
   useEffect(() => {
-    // Fetch images for each place using the Pexels API
     const fetchImages = async () => {
       const imageUrls = [];
 
@@ -59,15 +64,14 @@ const Explore = () => {
           const response = await axios.get(`https://api.pexels.com/v1/search?query=${place.name}`, {
             headers,
           });
-          const imageUrl = response.data.photos[0]?.src.small; // Get the URL of the small thumbnail
+          const imageUrl = response.data.photos[0]?.src.small; 
           imageUrls.push(imageUrl);
         } catch (error) {
           console.error(error);
-          imageUrls.push(null); // If fetching image fails, add null to the imageUrls array
+          imageUrls.push(null); 
         }
       }
 
-      // Update the responseData array with imageUrls
       setResponseData(prevData =>
         prevData.map((place, index) => ({
           ...place,
@@ -76,13 +80,18 @@ const Explore = () => {
       );
     };
 
-    fetchImages();
+    // Only run fetchImages if responseData has changed
+    if (prevResponseDataRef.current !== responseData) {
+      fetchImages();
+    }
   }, [responseData]);
+
+  const navigate = useNavigate();
 
   const handlePlaceClick = (place) => {
     setSelectedPlace(place);
-    // Handle the click event for the selected place
-    console.log(`Clicked on ${place.name}`);
+    console.log(`Clicked on ${place}`);
+    navigate(`/places/details/${place}`);
   };
 
   return (
@@ -101,7 +110,6 @@ const Explore = () => {
       {sendSuccess && <p className="success-message">Message sent successfully!</p>}
       {sendError && <p className="error-message">{sendError}</p>}
 
-      {/* Display the response data in cards */}
       <div className="cards-container">
         {responseData.slice(0, 5).map((place, index) => (
           <div className="card" key={index} onClick={() => handlePlaceClick(place)}>
@@ -119,11 +127,9 @@ const Explore = () => {
         ))}
       </div>
 
-      {/* Display selected place details */}
       {selectedPlace && (
         <div className="selected-place">
           <h2>Selected Place: {selectedPlace.name}</h2>
-          {/* Render additional details about the selected place */}
         </div>
       )}
     </div>
