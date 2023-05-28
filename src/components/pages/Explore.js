@@ -3,6 +3,8 @@ import axios from 'axios';
 import { host } from '../../utils/ApiRoutes';
 import './Explore.css';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 
 const Explore = () => {
@@ -97,6 +99,9 @@ const Explore = () => {
   return (
     <div className="explore-container">
       <h1>Explore</h1>
+
+      <Link to="/schedule-generator">Go to Schedule Generator</Link>
+
       <div className="message-input">
         <textarea
           placeholder="Enter your message"
