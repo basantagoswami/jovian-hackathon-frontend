@@ -3,7 +3,7 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import { host } from '../../utils/ApiRoutes';
-import './Explore2.css';
+import './ScheduleGenerator.css';
 
 const ScheduleGenerator = () => {
   const [city, setCity] = useState('');

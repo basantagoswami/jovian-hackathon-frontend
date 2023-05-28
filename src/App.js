@@ -4,7 +4,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Home from './components/Home/Home';
 import Explore from './components/pages/Explore';
-import ScheduleGenerator from './components/pages/Explore2';
+import ScheduleGenerator from './components/pages/ScheduleGenerator';
 import PlaceDetails from './components/Details/Details';
 import ScheduleComponent from './components/Itinerary/Itinerary';
 
