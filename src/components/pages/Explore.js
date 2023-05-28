@@ -63,7 +63,7 @@ const Explore = () => {
             'Content-Type': 'application/json',
             Accept: 'application/json',
           };
-          const response = await axios.get(`https://api.pexels.com/v1/search?query=${place.name}`, {
+          const response = await axios.get(`https://api.pexels.com/v1/search?query=${place}`, {
             headers,
           });
           const imageUrl = response.data.photos[0]?.src.small; 
@@ -120,21 +120,21 @@ const Explore = () => {
           <div className="card" key={index} onClick={() => handlePlaceClick(place)}>
             <div className="place-image-container">
               {place.imageUrl && (
-                <img className="place-image" src={place.imageUrl} alt={place.name} />
+                <img className="place-image" src={place.imageUrl} alt={place} />
               )}
             </div>
             <div className="place-info">
-              <h2>{place.name}</h2>
+              <h2>{place}</h2>
               <p>{place.additionalInfo}</p>
             </div>
-            <span className="place-name">{place.name}</span>
+            {/* <span className="place-name">{place.name}</span> */}
           </div>
         ))}
       </div>
 
       {selectedPlace && (
         <div className="selected-place">
-          <h2>Selected Place: {selectedPlace.name}</h2>
+          <h2>Selected Place: {selectedPlace}</h2>
         </div>
       )}
     </div>
