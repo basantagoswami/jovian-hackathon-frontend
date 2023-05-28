@@ -5,18 +5,19 @@ import Register from './components/Register/Register';
 import Home from './components/Home/Home';
 import Explore from './components/pages/Explore';
 import PlaceDetails from './components/Details/Details';
+import ScheduleComponent from './components/Itinerary/Itinerary';
 
 function App() {
   return (
     <Router>
-            <Routes>
+      <Routes>
         <Route  path="/register" element={<Register/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/" element={<Home/>} />
         <Route path="/explore" element={<Explore/>} />
         <Route path="/places/details/:placeName" component={<PlaceDetails/>} />
-        </Routes>
-
+        <Route path="places/schedule" element={<ScheduleComponent/>}/>
+      </Routes>
     </Router>
   );
 }
