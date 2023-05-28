@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { host } from '../../utils/ApiRoutes';
 import './Explore.css';
-import { useNavigate } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 const Explore = () => {
   const [promptText, setPromptText] = useState('');
@@ -12,13 +11,15 @@ const Explore = () => {
   const [sendError, setSendError] = useState('');
   const [responseData, setResponseData] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [detailsData, setDetailsData] = useState(null);
   const access_token = localStorage.getItem('access_token');
-  
-  const prevResponseDataRef = useRef(); // Create a ref to store the previous responseData
+  const navigate = useNavigate();
+
+  const prevResponseDataRef = useRef();
 
   useEffect(() => {
-    prevResponseDataRef.current = responseData; // Update the ref with the current responseData
-  }, [responseData]); // This runs every time responseData changes
+    prevResponseDataRef.current = responseData;
+  }, [responseData]);
 
   const handleSendMessage = async () => {
     try {
@@ -31,12 +32,8 @@ const Explore = () => {
         'Content-Type': 'application/json',
         Accept: 'application/json',
       };
-      
-      const response = await axios.post(
-        `${host}/places/explore`,
-        { promptText },
-        { headers }
-      );
+
+      const response = await axios.post(`${host}/places/explore`, { promptText }, { headers });
 
       console.log(response.data);
       setIsSending(false);
@@ -50,48 +47,19 @@ const Explore = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      const imageUrls = [];
+  const handlePlaceClick = async (place) => {
+    try {
+      setSelectedPlace(place);
+      setDetailsData(null); // Clear previous details data
+      const response = await axios.get(`${host}/places/details?placeName=${place}`);
+      console.log(response.data);
+      setDetailsData(response.data);
 
-      for (const place of responseData) {
-        try {
-          const headers = {
-            Authorization: 'cMNN6k4FA6ZCj62MP9vGJU8BhWGnaM5xQZeNKWVsToJp7KBHxjEAv4Gb',
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          };
-          const response = await axios.get(`https://api.pexels.com/v1/search?query=${place.name}`, {
-            headers,
-          });
-          const imageUrl = response.data.photos[0]?.src.small; 
-          imageUrls.push(imageUrl);
-        } catch (error) {
-          console.error(error);
-          imageUrls.push(null); 
-        }
-      }
-
-      setResponseData(prevData =>
-        prevData.map((place, index) => ({
-          ...place,
-          imageUrl: imageUrls[index]
-        }))
-      );
-    };
-
-    // Only run fetchImages if responseData has changed
-    if (prevResponseDataRef.current !== responseData) {
-      fetchImages();
+      // Redirect to the next page with the selected place as a query parameter
+      navigate(`/hotels?place=${encodeURIComponent(place)}`);
+    } catch (error) {
+      console.error(error);
     }
-  }, [responseData]);
-
-  const navigate = useNavigate();
-
-  const handlePlaceClick = (place) => {
-    setSelectedPlace(place);
-    console.log(`Clicked on ${place}`);
-    navigate(`/places/details/${place}`);
   };
 
   return (
@@ -114,22 +82,20 @@ const Explore = () => {
         {responseData.slice(0, 5).map((place, index) => (
           <div className="card" key={index} onClick={() => handlePlaceClick(place)}>
             <div className="place-image-container">
-              {place.imageUrl && (
-                <img className="place-image" src={place.imageUrl} alt={place.name} />
-              )}
+              <img className="place-image" src={`images/${place}.jpg`} alt={place} />
+              <span className="place-name">{place}</span>
             </div>
             <div className="place-info">
-              <h2>{place.name}</h2>
-              <p>{place.additionalInfo}</p>
+              <h2>{place}</h2>
+              <p>{detailsData}</p>
             </div>
-            <span className="place-name">{place.name}</span>
           </div>
         ))}
       </div>
 
       {selectedPlace && (
         <div className="selected-place">
-          <h2>Selected Place: {selectedPlace.name}</h2>
+          <h2>Selected Place: {selectedPlace}</h2>
         </div>
       )}
     </div>

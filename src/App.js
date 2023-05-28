@@ -4,8 +4,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Home from './components/Home/Home';
 import Explore from './components/pages/Explore';
-import PlaceDetails from './components/Details/Details';
-
+import Hotels from './components/pages/Hotels';
 function App() {
   return (
     <Router>
@@ -14,7 +13,9 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/" element={<Home/>} />
         <Route path="/explore" element={<Explore/>} />
-        <Route path="/places/details/:placeName" component={<PlaceDetails/>} />
+        <Route path="/hotels" component={<Hotels/>} />
+
+
         </Routes>
 
     </Router>
