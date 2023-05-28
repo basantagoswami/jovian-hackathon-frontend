@@ -30,8 +30,8 @@ const Register = () => {
 
   if (isRegistered) {
     return (
-      <div className="register-container">
-        <div className="card">
+      <div className="register-success-container">
+        <div className="register-success-card">
           <h1>Register</h1>
           <p className="registration-message">{registrationMessage}</p>
           <Navigate to="/login" />
@@ -42,7 +42,7 @@ const Register = () => {
 
   return (
     <div className="register-container">
-      <div className="card">
+      <div className="register-card">
         <h1>Register</h1>
         <div className="input-group">
           <label htmlFor="username">Username:</label>
@@ -65,7 +65,6 @@ const Register = () => {
           />
         </div>
         <button onClick={handleRegister}>Register</button>
-        <p>Press Enter to register</p>
         <p className="login-link">
           Already have an account? <Link to="/login">Login</Link>
         </p>

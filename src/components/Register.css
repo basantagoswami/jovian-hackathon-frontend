@@ -6,46 +6,82 @@
   background-image: url('../assests/mountain.jpg');
   background-size: cover;
   background-position: center;
-  backdrop-filter: blur(5px); /* Apply blur effect */
+  backdrop-filter: blur(5px);
 }
 
-.card {
-  background-color: rgba(255, 255, 255, 0.5); /* Use a semi-transparent background color */
+.register-card {
+  background-color: rgba(255, 255, 255, 0.5);
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), 0 5px 20px rgba(0, 0, 0, 0.1); /* Apply box shadow */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), 0 5px 20px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   width: 90%;
   margin: 0 auto;
 }
 
-h1 {
+.register-success-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../assests/mountain.jpg');
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(5px);
+}
+
+.register-success-card {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), 0 5px 20px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.register-container .register-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-container .register-card > * {
+  margin-bottom: 10px;
+}
+
+.register-container .registration-message {
+  text-align: center;
+}
+
+.register-container h1 {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
 }
 
-.input-group {
+.register-container .input-group {
   margin-bottom: 15px;
 }
 
-label {
+.register-container label {
   display: block;
   margin-bottom: 5px;
   color: #555;
 }
 
-input[type='text'],
-input[type='password'] {
+.register-container input[type='text'],
+.register-container input[type='password'] {
   width: 100%;
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
-button {
-  background-color: rgba(76, 175, 80, 0.8); /* Use a semi-transparent background color for the button */
+.register-container button {
+  background-color: rgba(76, 175, 80, 0.8);
   color: white;
   border: none;
   padding: 12px 20px;
@@ -59,21 +95,21 @@ button {
   transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: rgba(76, 175, 80, 1); /* Increase opacity on hover */
+.register-container button:hover {
+  background-color: rgba(76, 175, 80, 1);
 }
 
-p {
+.register-container p {
   text-align: center;
   margin-top: 10px;
   color: #555;
 }
 
-a {
-  color: #007bff;
+.register-container a {
+  color: #26394c;
   text-decoration: none;
 }
 
-a:hover {
+.register-container a:hover {
   text-decoration: underline;
 }
