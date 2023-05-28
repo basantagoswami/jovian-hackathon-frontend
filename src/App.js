@@ -4,6 +4,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Home from './components/Home/Home';
 import Explore from './components/pages/Explore';
+import ScheduleGenerator from './components/pages/Explore2';
 import PlaceDetails from './components/Details/Details';
 import ScheduleComponent from './components/Itinerary/Itinerary';
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/" element={<Home/>} />
         <Route path="/explore" element={<Explore/>} />
+        <Route path="/schedule-generator" element={< ScheduleGenerator />}/>
         <Route path="/places/details/:placeName" component={<PlaceDetails/>} />
         <Route path="places/schedule" element={<ScheduleComponent/>}/>
       </Routes>
