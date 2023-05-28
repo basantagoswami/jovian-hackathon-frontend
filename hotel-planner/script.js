@@ -1,5 +1,7 @@
 const apiKey = 'AIzaSyA5EFJgOfcfTtUqd_MtWEIdeiK0-N06f-4';
+//if the api key does not work please put your own api key here
 const aviationStackApiKey = 'be3b602959c4fb9b25f8ec7d73de8a2f';
+
 
 let hotelResults = document.getElementById('hotelResults');
 let placeIdArray = [];
