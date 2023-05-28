@@ -6,7 +6,6 @@ import Home from './components/Home/Home';
 import Explore from './components/pages/Explore';
 import ScheduleGenerator from './components/pages/ScheduleGenerator';
 import PlaceDetails from './components/Details/Details';
-import ScheduleComponent from './components/Itinerary/Itinerary';
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
         <Route path="/explore" element={<Explore/>} />
         <Route path="/schedule-generator" element={< ScheduleGenerator />}/>
         <Route path="/places/details/:placeName" component={<PlaceDetails/>} />
-        <Route path="places/schedule" element={<ScheduleComponent/>}/>
       </Routes>
     </Router>
   );
