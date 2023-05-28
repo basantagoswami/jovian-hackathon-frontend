@@ -1,0 +1,64 @@
+/* Apply general styles to the page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #hotelResults {
+    margin-top: 20px;
+  }
+  
+  /* Apply styles to individual hotel/place elements */
+  .place {
+    margin-bottom: 20px;
+  }
+  
+  .place img {
+    width: auto;
+    max-height: 200px;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .place h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .place p {
+    margin: 0;
+  }
+  
+  .place a {
+    color: #4caf50;
+    text-decoration: none;
+  }
+  
+  .place hr {
+    margin: 10px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+  
