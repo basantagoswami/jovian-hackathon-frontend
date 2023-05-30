@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { host } from '../../utils/ApiRoutes';
 import './Explore.css';
-import { Link, useNavigate } from 'react-router-dom';
 
 const Explore = () => {
   const [promptText, setPromptText] = useState('');
@@ -10,16 +9,8 @@ const Explore = () => {
   const [sendSuccess, setSendSuccess] = useState(false);
   const [sendError, setSendError] = useState('');
   const [responseData, setResponseData] = useState([]);
-  const [selectedPlace, setSelectedPlace] = useState(null);
-  const [detailsData, setDetailsData] = useState(null);
+  const [selectedPlaceDetails, setSelectedPlaceDetails] = useState(null);
   const access_token = localStorage.getItem('access_token');
-  const navigate = useNavigate();
-
-  const prevResponseDataRef = useRef();
-
-  useEffect(() => {
-    prevResponseDataRef.current = responseData;
-  }, [responseData]);
 
   const handleSendMessage = async () => {
     try {
@@ -49,14 +40,13 @@ const Explore = () => {
 
   const handlePlaceClick = async (place) => {
     try {
-      setSelectedPlace(place);
-      setDetailsData(null); // Clear previous details data
-      const response = await axios.get(`${host}/places/details?placeName=${place}`);
+      const apiUrl = `https://jovian-hackathon-backend.vercel.app/places/details?placeName=${place}`;
+  
+      const response = await axios.get(apiUrl);
       console.log(response.data);
-      setDetailsData(response.data);
-
-      // Redirect to the next page with the selected place as a query parameter
-      navigate(`/hotels?place=${encodeURIComponent(place)}`);
+  
+      const { status, ...responseData } = response.data; // Filter out the status code
+      setSelectedPlaceDetails(JSON.stringify(responseData, null, 2)); // Format response as JSON string
     } catch (error) {
       console.error(error);
     }
@@ -65,6 +55,7 @@ const Explore = () => {
   return (
     <div className="explore-container">
       <h1>Explore</h1>
+
       <div className="message-input">
         <textarea
           placeholder="Enter your message"
@@ -79,23 +70,18 @@ const Explore = () => {
       {sendError && <p className="error-message">{sendError}</p>}
 
       <div className="cards-container">
-        {responseData.slice(0, 5).map((place, index) => (
+        {responseData && responseData.slice(0, 5).map((place, index) => (
           <div className="card" key={index} onClick={() => handlePlaceClick(place)}>
-            <div className="place-image-container">
-              <img className="place-image" src={`images/${place}.jpg`} alt={place} />
-              <span className="place-name">{place}</span>
-            </div>
-            <div className="place-info">
-              <h2>{place}</h2>
-              <p>{detailsData}</p>
-            </div>
+            <h2>{place}</h2>
+            {place.additionalInfo && <p>{place.additionalInfo}</p>}
           </div>
         ))}
       </div>
 
-      {selectedPlace && (
-        <div className="selected-place">
-          <h2>Selected Place: {selectedPlace}</h2>
+      {selectedPlaceDetails && (
+        <div className="place-details">
+          <h2>API Response</h2>
+          <textarea className="response-textarea" value={selectedPlaceDetails} readOnly />
         </div>
       )}
     </div>

@@ -1,0 +1,25 @@
+<!-- index.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Travel Schedule Generator</title>
+</head>
+<body>
+  <h1>Travel Schedule Generator</h1>
+
+  <form action="/schedule" method="POST">
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" required>
+
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" required>
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" required>
+
+    <button type="submit">Generate Schedule</button>
+  </form>
+</body>
+</html>

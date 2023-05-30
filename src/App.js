@@ -4,20 +4,18 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Home from './components/Home/Home';
 import Explore from './components/pages/Explore';
-import Hotels from './components/pages/Hotels';
+import ScheduleGenerator from './components/pages/ScheduleGenerator';
+
 function App() {
   return (
     <Router>
-            <Routes>
+      <Routes>
         <Route  path="/register" element={<Register/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/" element={<Home/>} />
         <Route path="/explore" element={<Explore/>} />
-        <Route path="/hotels" component={<Hotels/>} />
-
-
-        </Routes>
-
+        <Route path="/schedule-generator" element={< ScheduleGenerator />}/>
+      </Routes>
     </Router>
   );
 }
