@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { host } from '../../utils/ApiRoutes';
 import './Explore.css';
+import { Link } from 'react-router-dom';
 
 const Explore = () => {
   const [promptText, setPromptText] = useState('');
@@ -71,10 +72,13 @@ const Explore = () => {
 
       <div className="cards-container">
         {responseData && responseData.slice(0, 5).map((place, index) => (
-          <div className="card" key={index} onClick={() => handlePlaceClick(place)}>
+          <Link className="card" to={`/explore&query=${place}`}>
+          {/* <div className="card" key={index} onClick={() => handlePlaceClick(place)}> */}
+            {/* <Link to={`/explore&query=${place}`}>{place}</Link> */}
             <h2>{place}</h2>
             {place.additionalInfo && <p>{place.additionalInfo}</p>}
-          </div>
+          {/* </div> */}
+          </Link>
         ))}
       </div>
 

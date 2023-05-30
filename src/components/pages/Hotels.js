@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const Hotels = () => {
+  const {id} = useParams();
   const location = useLocation();
   const [hotelsData, setHotelsData] = useState([]);
 
@@ -19,7 +21,7 @@ const Hotels = () => {
 
     fetchHotelsData();
   }, [location.search]);
-
+console.log("ID", id)
   return (
     <div>
       <h1>Hotels</h1>
@@ -36,3 +38,4 @@ const Hotels = () => {
 };
 
 export default Hotels;
+  
