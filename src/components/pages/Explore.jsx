@@ -71,16 +71,15 @@ const Explore = () => {
       {sendError && <p className="error-message">{sendError}</p>}
 
       <div className="cards-container">
-        {responseData && responseData.slice(0, 5).map((place, index) => (
-          <Link className="card" to={`/explore&query=${place}`}>
-          {/* <div className="card" key={index} onClick={() => handlePlaceClick(place)}> */}
-            {/* <Link to={`/explore&query=${place}`}>{place}</Link> */}
-            <h2>{place}</h2>
-            {place.additionalInfo && <p>{place.additionalInfo}</p>}
-          {/* </div> */}
-          </Link>
-        ))}
-      </div>
+  {responseData && responseData.slice(0, 5).map((place, index) => (
+    <div className="card" key={index} onClick={() => handlePlaceClick(place)}>
+      <Link to={`/explore&query=${place}`}>
+        <h2>{place}</h2>
+        {place.additionalInfo && <p>{place.additionalInfo}</p>}
+      </Link>
+    </div>
+  ))}
+</div>
 
       {selectedPlaceDetails && (
         <div className="place-details">
